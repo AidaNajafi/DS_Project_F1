@@ -132,9 +132,6 @@ for item in json_data:
 # Calculate IDF for all documents
 document_paths = []
 
-# for doc_number in document_id_n_candidates:
-#     path = f"D:\DS_Project (2)\data\document_{doc_number}.txt"
-#     document_paths.append(path)
 
 for doc_number in range(1000):
     path = fr"G:\UNIVERSITYY MATERIAL\4021\DS\Project Ph.2\data\document_{doc_number}.txt"
@@ -154,16 +151,16 @@ max_length = max(len(tf_idf_documents[path]) for path in document_paths)
 tfidf_matrix = [list(tf_idf_documents[path].values()) + [0] * (max_length - len(tf_idf_documents[path]))
                 for path in document_paths]
 
-# Step 1: Reduce TF-IDF vectors to 2D using PCA
+# Reduce TF-IDF vectors to 2D using PCA
 pca = PCA(n_components=2)
 tfidf_2d = pca.fit_transform(tfidf_matrix)
 
-# Step 2: Apply clustering using K-Means
-num_clusters = 6  # You can adjust this based on your needs
+# Apply clustering using K-Means
+num_clusters = 6  
 kmeans = KMeans(n_clusters=num_clusters, random_state=42)
 clusters = kmeans.fit_predict(tfidf_matrix)
 
-# Step 3: Visualize the clustered data
+#  Visualize the clustered data
 colors = ['red', 'green', 'blue', 'purple', 'orange', 'pink']  # Add more colors if needed
 plt.figure(figsize=(10, 8))
 
