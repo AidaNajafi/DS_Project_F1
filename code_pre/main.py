@@ -4,17 +4,22 @@ from collections import Counter, defaultdict
 import math
 from difflib import SequenceMatcher
 import json
-
+from nltk.stem import WordNetLemmatizer
 
 def clean_and_tokenize(content):
+    lemmatizer = WordNetLemmatizer()
+
     # Remove non-alphabetic characters and tokenize
     tokens = [word.lower()
               for word in word_tokenize(content) if word.isalnum()]
+
+    # Lemmatize the tokens
+    tokens = [lemmatizer.lemmatize(word) for word in tokens]
+
     # Remove stopwords
     tokens = [
         word for word in tokens if word not in stopwords.words('english')]
     return tokens
-
 
 def calculate_tf(document_tokens):
     word_counts = Counter(document_tokens)
